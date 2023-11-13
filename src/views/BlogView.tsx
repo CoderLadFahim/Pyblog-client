@@ -3,6 +3,7 @@ import {useEffect, useState} from 'react'
 import {useParams, useNavigate} from 'react-router-dom'
 import BlogComment from '../components/BlogComment.tsx'
 import {IBlog, IBlogComment} from '../types/interfaces'
+
 function BlogView() {
 	const {blog_id} = useParams()
 	const navigate = useNavigate()
@@ -25,7 +26,7 @@ function BlogView() {
 		axios.delete(`/comments/${id}`).then(fetchComments).catch(console.log)
 	}
 
-	const postComment = (
+	const postComment = async (
 		commentId?: string | number,
 		updatedCommentBody?: string
 	) => {
@@ -38,17 +39,15 @@ function BlogView() {
 			payload.body = updatedCommentBody
 		}
 
-		axios[commentId ? 'put' : 'post'](
+		await axios[commentId ? 'put' : 'post'](
 			commentId
 				? `comments/${commentId}`
 				: `/blogs/${blog_id}/comments`,
 			payload
 		)
-			.then(() => {
-				setComment('')
-				fetchComments()
-			})
-			.catch((e) => console.log(e))
+		setComment('')
+		fetchComments()
+		return;
 	}
 
 	const handleCommentInputKeyUp = (e) => {
@@ -78,7 +77,7 @@ function BlogView() {
 			</div>
 
 			<div className="blog-body-wrapper mb-28">
-				<p className="text-gray-300">{blog?.body}</p>
+				<p className="text-gray-300 text-xl">{blog?.body}</p>
 			</div>
 
 			<div className="comments-wrapper">
@@ -91,6 +90,8 @@ function BlogView() {
 		            <label htmlFor="title-input" className="text-xs text-gray-400">Add a comment</label>
 					<input
 						onKeyUp={handleCommentInputKeyUp}
+						onChange={handleCommentInputKeyUp}
+						value={comment}
 						type="text"
 						className="p-2 rounded bg-slate-700 outline-none text-white mt-2"
 						placeholder="Enter comment"

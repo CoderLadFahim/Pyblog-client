@@ -9,11 +9,12 @@ function BlogComment({
 	const [isEditing, setIsEditing] = useState<boolean>(false)
 	const [commentText, setCommentText] = useState<string>(comment.body)
 
-	const handleCommentUpdate = (e) => {
-		if (e.keyCode !== 13) return setCommentText(() => e.target.value)
-		setIsEditing(() => false)
-
+	const handleCommentUpdate = () => {
 		commentUpdaterFunction(comment.id, commentText)
+		    .then(() => {
+		        setIsEditing(false)
+                setCommentText('')
+		})
 	}
 
 	return (
@@ -21,7 +22,7 @@ function BlogComment({
 			{!isEditing ? (
 				<>
 					<div className="flex items-start justify-between pt-2 pb-12 px-3 bg-slate-700 rounded transition shadow-lg">
-						<p className="blog-title cursor-pointer text-gray-200 w-11/12">
+						<p className="blog-title text-gray-200 w-11/12">
 							{comment.body}
 						</p>
 						<div className="blog-control space-x-4 mt-1">
@@ -43,12 +44,11 @@ function BlogComment({
 					</div>
 				</>
 			) : (
-				<>
+				<div className="comment-input-wrapper">
 					<textarea
 						value={commentText}
-						onChange={handleKeyUp}
-						onKeyUp={handleKeyUp}
-						className="mt-4 w-full p-2 rounded bg-slate-700 outline-none text-gray-400"
+						onChange={(e) => setCommentText(() => e.target.value)}
+						className="mt-4 w-full p-2 rounded bg-slate-700 outline-none text-gray-200"
 						placeholder="Enter comment"
 					></textarea>
 					<div className="blog-control space-x-4 mt-3">
@@ -65,7 +65,7 @@ function BlogComment({
 							Cancel
 						</button>
 					</div>
-				</>
+				</div>
 			)}
 		</div>
 	)
