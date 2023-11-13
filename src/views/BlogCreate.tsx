@@ -33,28 +33,28 @@ function BlogCreate() {
 
 	return (
 		<div className="wrapper mx-24 mt-12">
-            <div className="mb-14 pb-2 border-b border-gray-300 flex items-baseline justify-between">
+            <div className="mb-14 pb-2 border-b border-gray-600 flex items-baseline justify-between">
 				<h2 className='text-3xl text-sky-500'>Create blog</h2>
 			</div>
 
             <div className="space-y-10">
 		        <div className="flex flex-col space-y-3">
-		            <label htmlFor="title-input">Title</label>
+		            <label htmlFor="title-input" className="text-xs text-gray-400">Title</label>
 		            <input
 		                type="text"
 		                id="title-input"
 		                name="title-input"
 		                value={title}
-		                className="border p-2 rounded" 
+		                className="p-2 rounded bg-slate-700 outline-none text-white"
 		                placeholder="Enter title" 
 		                onChange={(e) => setTitle(() => (e.target as HTMLInputElement).value)}
 		            />
 		        </div>
 
 		        <div className="flex flex-col space-y-3">
-		            <label htmlFor="body-input">Body</label>
+		            <label htmlFor="body-input" className="text-xs text-gray-400">Body</label>
 		            <textarea 
-		                className="border rounded p-3" 
+		                className="p-2 rounded bg-slate-700 outline-none text-white" 
 		                rows={10} 
 		                value={body}
 		                name="body-input" 
@@ -65,10 +65,10 @@ function BlogCreate() {
 		        </div>
 
                 <div className="space-x-4">
-		            <button className="text-white bg-green-400 px-3 py-2 rounded capitalize" onClick={handleBlogCreate}>
+		            <button className="custom-btn text-white bg-green-500" onClick={handleBlogCreate}>
 		                {params.id_of_the_blog_to_edit ? 'update' : 'create'}
 		            </button>
-                    <button className="text-white bg-slate-400 px-3 py-2 rounded capitalize" onClick={() => navigate('/')}>
+                    <button className="custom-btn text-white bg-gray-600" onClick={() => navigate('/')}>
 		                Cancel
 		            </button>
                 </div>

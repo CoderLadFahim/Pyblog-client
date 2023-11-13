@@ -3,6 +3,7 @@ import BlogListItem from '../components/BlogListItem'
 import {useEffect, useState} from 'react'
 import {IBlog} from '../types/interfaces'
 import { Link } from 'react-router-dom'
+import { Camera } from 'react-feather'
 
 function BlogListDisplay() {
 	const [blogs, setBlogs] = useState<IBlog[]>([])
@@ -28,16 +29,17 @@ function BlogListDisplay() {
 					<h2 className="text-3xl text-sky-500">Blogs</h2>
 					<Link
 						to="/compose"
-						className="text-sm text-gray-400 hover:text-emerald-400"
+						className="custom-btn border transition text-green-500 hover:text-white border-green-500 hover:bg-green-500"
 					>
-						+ Create a new blog
+						+ New blog
 					</Link>
 				</div>
 				<div className="blog-list-display space-y-5">
 					{blogs.length
-						? blogs.map((blog) => (
+						? blogs.map((blog, i) => (
 								<BlogListItem
 									key={blog.id}
+								    i={i}
 									blog={blog}
 									deleteHandler={handleDelete}
 								/>
