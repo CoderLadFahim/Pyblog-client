@@ -58,18 +58,18 @@ function BlogView() {
 
 	return (
 		<div className="wrapper mx-24 mt-12">
-			<div className="mb-14 pb-2 border-b border-gray-300 flex items-baseline justify-between">
+			<div className="mb-14 pb-2 border-b border-gray-600 flex items-baseline justify-between">
 				<h2 className="text-3xl text-sky-500">{blog?.title}</h2>
 
 				<div className="blog-control space-x-4">
 					<button
-						className="px-3 py-1 text-white bg-green-500 rounded"
+						className="custom-btn text-white bg-green-500"
 						onClick={() => navigate(`/compose/${blog_id}`)}
 					>
 						Edit
 					</button>
 					<button
-						className="px-3 py-1 text-white bg-gray-500 rounded"
+						className="custom-btn text-white bg-gray-600"
 						onClick={() => navigate('/')}
 					>
 						Back
@@ -78,24 +78,26 @@ function BlogView() {
 			</div>
 
 			<div className="blog-body-wrapper mb-28">
-				<p className="text-gray-700">{blog?.body}</p>
+				<p className="text-gray-300">{blog?.body}</p>
 			</div>
 
 			<div className="comments-wrapper">
-				<h3 className="mb-10 border-b border-gray-300">
-					Comments ({blogComments.length})
-				</h3>
+				<p className="mb-10 border-b text-gray-300 border-gray-600"> 
+				    Comments <span className="text-xs text-gray-400">({blogComments.length})</span> 
+				</p>
 
-				<div className="comment-input mt-10 flex flex-col mb-10">
+
+				<div className="comment-input mt-10 flex flex-col mb-16">
+		            <label htmlFor="title-input" className="text-xs text-gray-400">Add a comment</label>
 					<input
 						onKeyUp={handleCommentInputKeyUp}
 						type="text"
-						className="border p-2 text-sm mt-2 rounded w-full"
+						className="p-2 rounded bg-slate-700 outline-none text-white mt-2"
 						placeholder="Enter comment"
 					/>
 				</div>
 
-				<div className="space-y-7">
+				<div className="space-y-7 mb-16">
 					{blogComments.length ? (
 						blogComments.map((comment) => (
 							<BlogComment
@@ -106,7 +108,7 @@ function BlogView() {
 							/>
 						))
 					) : (
-						<p className="text-xs text-gray-55e00">
+						<p className="text-xs text-gray-400">
 							No comments to show
 						</p>
 					)}
