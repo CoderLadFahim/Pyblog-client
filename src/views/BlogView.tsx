@@ -17,9 +17,9 @@ function BlogView() {
 	}, [])
 
 	const fetchComments = () => {
-		axios.get(`blogs/${blog_id}/comments`).then((data) =>
-			setBlogComments(() => data.data)
-		)
+		axios.get(`blogs/${blog_id}/comments`).then((data) => {
+		    setBlogComments(() => data.data) 
+		})
 	}
 
 	const deleteComment = (id) => {

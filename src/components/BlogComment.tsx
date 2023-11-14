@@ -13,7 +13,6 @@ function BlogComment({
 		commentUpdaterFunction(comment.id, commentText)
 		    .then(() => {
 		        setIsEditing(false)
-                setCommentText('')
 		})
 	}
 
@@ -28,7 +27,10 @@ function BlogComment({
 						<div className="blog-control space-x-4 mt-1">
 							<button
 								className="text-xs transition text-gray-400 hover:text-green-400 rounded"
-								onClick={() => setIsEditing(() => true)}
+								onClick={() => {
+								    setIsEditing(() => true)
+								    setCommentText(() => comment.body)
+								}}
 							>
 								<Edit size={16} />
 							</button>
